@@ -1,0 +1,83 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <style>
+      body {
+        margin: 0px;
+        padding: 0px;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="myCanvas" width="1024" height=620></canvas>
+    <script>
+      var canvas = document.getElementById('myCanvas');
+      var context = canvas.getContext('2d');
+
+      var tinkerbell = new Image();
+      var background = new Image();
+      var butterfly = new Image();
+
+      // tinkerbells location, initialize when the image is opened
+      var tinkerbell_x;
+      var tinkerbell_y;
+
+      var butterfly_x = 600;
+      var butterfly_y = 40;
+
+      //Load up the images
+      background.onload = function() {
+        context.drawImage(background,0,0,canvas.width,canvas.height);
+      };
+      background.src = 'assets/background.jpg';
+
+      butterfly.onload = function() {
+        context.drawImage(butterfly,butterfly_x,butterfly_y,80,80);
+      };
+      butterfly.src = 'assets/butterfly.png';
+
+      tinkerbell.onload = function() {
+        tinkerbell_x = 70;
+        tinkerbell_y = 50;
+        context.drawImage(tinkerbell,tinkerbell_x, tinkerbell_y,110,110);
+      };
+      tinkerbell.src = 'assets/tinkerbell.png';
+
+      // call this each time you want to re draw the screen
+      function draw(){
+        context.clearRect(0, 0, canvas.width, canvas.height);
+        context.drawImage(background,0,0,canvas.width,canvas.height);
+        context.drawImage(butterfly,butterfly_x,butterfly_y,80,80);
+        context.drawImage(tinkerbell,tinkerbell_x, tinkerbell_y,110,110);
+      }
+
+      // each time a button is hit, move tinkerbell and re draw the canvas
+      function buttonRight(n) {
+        tinkerbell_x = tinkerbell_x + 10;
+        draw();
+      }
+
+      function buttonLeft(n) {
+        tinkerbell_x = tinkerbell_x - 10;
+        draw();
+      }
+
+      function buttonUp(n) {
+        tinkerbell_y = tinkerbell_y - 10;
+        draw();
+      }
+
+      function buttonDown(n) {
+        tinkerbell_y = tinkerbell_y + 10;
+        draw();
+      }
+
+    </script>
+    <br>
+      <button onmousedown="buttonRight(0)">R</button>
+      <button onmousedown="buttonLeft(0)">L</button>
+      <button onmousedown="buttonUp(0)">U</button>
+      <button onmousedown="buttonDown(0)">D</button>
+      <p>Can you get Tinkerbell Home?</p>
+  </body>
+</html>
